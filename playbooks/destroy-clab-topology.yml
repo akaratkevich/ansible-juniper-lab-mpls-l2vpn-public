@@ -1,0 +1,26 @@
+---
+- name: Deploy containerlab topology
+  hosts: localhost
+  gather_facts: false
+  become: true
+  vars_prompt:
+    - name: ansible_become_password
+      prompt: "Enter the sudo password"
+      private: yes
+
+  tasks:
+    - name: Run clab destroy command
+      ansible.builtin.shell: "sudo -S clab destroy -t /home/anton/git_hub/ansible-juniper-lab-mpls-l2vpn-public/clab/topology.yml --cleanup"
+      environment:
+        SUDO_PASS: "{{ ansible_become_password }}"
+          #no_log: true
+
+    - name: Check Docker containers status
+      ansible.builtin.shell: "docker ps -a"
+      register: docker_ps_output
+
+    - name: Check Docker containers have been removed
+      debug:
+        msg: "All Docker containers have been removed successfully."
+      when: docker_ps_output.stdout == ""
+
