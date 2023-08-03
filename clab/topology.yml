@@ -10,33 +10,42 @@ topology:
   kinds:
     vr-vmx:
       image: vrnetlab/vr-vmx:22.3R1.11
+    linux:
+      image: frrouting/frr:latest
 
   nodes:
     ce1:
-      kind: vr-vmx
+      kind: linux
       mgmt-ipv4: 172.100.1.2
+      binds:
+        - router1/daemons:/etc/frr/daemons
+        - router1/vtysh.conf:/etc/frr/vtysh.conf
+        - router1/frr.conf:/etc/frr/frr.conf
 
     ce2:
-      kind: vr-vmx
+      kind: linux
       mgmt-ipv4: 172.100.1.3
+      binds:
+        - router2/daemons:/etc/frr/daemons
+        - router2/vtysh.conf:/etc/frr/vtysh.conf
+        - router2/frr.conf:/etc/frr/frr.conf
 
     pe1:
       kind: vr-vmx
       mgmt-ipv4: 172.100.1.4
-    
+
     pe2:
       kind: vr-vmx
       mgmt-ipv4: 172.100.1.5
-    
+
     p1:
       kind: vr-vmx
-      mgmt-ipv4: 172.100.1.6
-      
-
+      mgmt-ipv4: 172.100.1.6  
 
   # Define links (interconnections)
   links:
     - endpoints: ["ce1:eth1", "pe1:eth1"]
     - endpoints: ["pe1:eth2", "p1:eth1"]
-    - endpoints: ["pe2:eth2", "p1:eth2"]
+    - endpoints: ["pe2:eth2", "p1:eth2"]  
     - endpoints: ["pe2:eth1", "ce2:eth1"]
+

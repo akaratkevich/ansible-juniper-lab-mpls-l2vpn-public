@@ -1,0 +1,19 @@
+---
+- name: enable netconf service on port 830
+  hosts: vr-vmx  # Replace with your desired host or group
+  gather_facts: false
+  connection: ansible.netcommon.network_cli
+  vars:
+    ansible_ssh_user: admin
+    ansible_ssh_pass: admin@123
+  
+  tasks:
+    - name: Enable NETCONF service on port 830
+      junipernetworks.junos.junos_netconf:
+        listens_on: 830
+        state: present
+      register: result
+
+    - name: Print result
+      debug:
+        var: result

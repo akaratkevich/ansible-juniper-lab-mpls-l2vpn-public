@@ -1,0 +1,12 @@
+---
+- name: Deploy SSH RSA on vr-vmx nodes
+  hosts: vr-vmx
+  gather_facts: false
+
+  tasks:
+    - name: Run go script
+      ansible.builtin.expect:
+        command: "/home/anton/git_hub/global-scripts/deploy-conf-file -config /home/anton/git_hub/ansible-juniper-lab-mpls-l2vpn-public/configuration/sshRSA.cfg"
+        responses:
+          "Enter the Juniper nodes (IP addresses or hostnames):seperated by comma": "{{ ansible_host }}"
+

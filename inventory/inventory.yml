@@ -19,6 +19,5 @@ LAB:
 
 vr-vmx:
   children:
-    CE:
     PE:
     P:
