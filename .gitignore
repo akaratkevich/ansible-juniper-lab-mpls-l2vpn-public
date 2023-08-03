@@ -1,1 +1,4 @@
 configuration/sshRSA.cfg
+configuration/sshRSA.txt
+vault.yml
+playbooks/clab-automated-network

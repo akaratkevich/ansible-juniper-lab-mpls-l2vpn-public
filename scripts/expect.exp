@@ -1,0 +1,11 @@
+#!/usr/bin/expect -f
+
+set timeout -1
+
+spawn ./scripts/deploy-conf-file -config ./configuration/sshRSA.cfg
+
+expect "Enter the Juniper nodes (IP addresses or hostnames):seperated by comma"
+
+send -- "pe1,pe2,p1\r"
+
+expect eof

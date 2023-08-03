@@ -1,12 +1,20 @@
 ---
-- name: Deploy SSH RSA on vr-vmx nodes
+- name: Load and commit base configuration
   hosts: vr-vmx
   gather_facts: false
+  connection: local
 
+  roles:
+    - Juniper.junos
   tasks:
-    - name: Run go script
-      ansible.builtin.expect:
-        command: "/home/anton/git_hub/global-scripts/deploy-conf-file -config /home/anton/git_hub/ansible-juniper-lab-mpls-l2vpn-public/configuration/sshRSA.cfg"
-        responses:
-          "Enter the Juniper nodes (IP addresses or hostnames):seperated by comma": "{{ ansible_host }}"
+    - name: Load configuration from a local file and commit
+      juniper_junos_config:
+        load: merge
+        format: set
+        src: "./configuration/sshRSA.txt"
+      register: response
+      register: response
 
+    - name: Print the response
+      debug:
+        var: response
