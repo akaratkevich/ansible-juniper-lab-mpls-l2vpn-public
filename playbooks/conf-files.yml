@@ -11,7 +11,7 @@
       juniper_junos_config:
         load: merge
         format: set
-        src: "./configuration/{{ inventory_hostname.split('.')[0] }}.txt"
+        src: "./configuration/{{ inventory_hostname.split('.')[0] }}_config.txt"
       register: response
 
     - name: Print the response

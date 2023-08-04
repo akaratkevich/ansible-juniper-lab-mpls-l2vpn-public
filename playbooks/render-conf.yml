@@ -1,0 +1,23 @@
+---
+- hosts: vr-vmx
+  gather_facts: no
+  tasks:
+    - name: Include variables from pe1.yml
+      include_vars:
+        file: ~/git_hub/ansible-juniper-lab-mpls-l2vpn-public/playbooks/host_vars/pe1.yml
+      when: inventory_hostname == 'pe1'
+
+    - name: Include variables from pe2.yml
+      include_vars:
+        file: ~/git_hub/ansible-juniper-lab-mpls-l2vpn-public/playbooks/host_vars/pe2.yml
+      when: inventory_hostname == 'pe2'
+
+    - name: Include variables from p1.yml
+      include_vars:
+        file: ~/git_hub/ansible-juniper-lab-mpls-l2vpn-public/playbooks/host_vars/p1.yml
+      when: inventory_hostname == 'p1'
+
+    - name: Render configuration template
+      template:
+        src: ~/git_hub/ansible-juniper-lab-mpls-l2vpn-public/templates/mpls-l2vpn.j2
+        dest: ~/git_hub/ansible-juniper-lab-mpls-l2vpn-public/configuration/{{ inventory_hostname }}_config.txt

@@ -1,0 +1,29 @@
+set interfaces ge-0/0/0 description "Link from PE2 to CE2"
+set interfaces ge-0/0/0 encapsulation ethernet-ccc
+set interfaces ge-0/0/0 unit 0 family ccc
+set interfaces ge-0/0/1 description "Link from PE2 to P-1"
+set interfaces ge-0/0/1 mtu 4000
+set interfaces ge-0/0/1 unit 0 family inet address 10.0.0.6/30
+set interfaces ge-0/0/1 unit 0 family mpls
+set interfaces lo0 unit 0 family inet address 10.2.2.2/32
+set routing-instances l2vpn1 instance-type l2vpn
+set routing-instances l2vpn1 protocols l2vpn interface ge-0/0/0.0 description "L"
+set routing-instances l2vpn1 protocols l2vpn site CE-2 interface ge-0/0/0.0 remote-site-id 1
+set routing-instances l2vpn1 protocols l2vpn site CE-2 site-identifier 2
+set routing-instances l2vpn1 protocols l2vpn encapsulation-type ethernet
+set routing-instances l2vpn1 interface ge-0/0/0.0
+set routing-instances l2vpn1 route-distinguisher 10.2.2.2:1
+set routing-instances l2vpn1 vrf-target target:65412:1
+set routing-options autonomous-system 65412
+set protocols bgp group ibgp type internal
+set protocols bgp group ibgp local-address 10.2.2.2
+set protocols bgp group ibgp family l2vpn signaling
+set protocols bgp group ibgp neighbor 10.1.1.1
+set protocols mpls label-switched-path lsp_to_pe1 to 10.1.1.1
+set protocols mpls interface ge-0/0/1.0
+set protocols ospf traffic-engineering
+set protocols ospf area 0.0.0.0 interface lo0.0
+set protocols ospf area 0.0.0.0 interface ge-0/0/1.0
+set protocols rsvp interface lo0.0
+set protocols rsvp interface ge-0/0/1.0
+
