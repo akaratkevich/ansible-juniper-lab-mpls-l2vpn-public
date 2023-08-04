@@ -1,4 +1,4 @@
-name: automatedNetwork/Configure MPLS-Based Layer 2 VPNs
+name: automated-network/Configure MPLS-Based Layer 2 VPNs
 prefix: ""
 # containerlab topology for the lab
 

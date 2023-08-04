@@ -11,8 +11,7 @@
       juniper_junos_config:
         load: merge
         format: set
-        src: "./configuration/sshRSA.txt"
-      register: response
+        src: "./configuration/{{ inventory_hostname.split('.')[0] }}.txt"
       register: response
 
     - name: Print the response
