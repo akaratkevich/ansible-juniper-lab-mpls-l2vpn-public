@@ -6,21 +6,21 @@ set interfaces ge-0/0/1 mtu 4000
 set interfaces ge-0/0/1 unit 0 family inet address 10.0.0.1/30
 set interfaces ge-0/0/1 unit 0 family mpls
 set interfaces fxp0 unit 0 family inet address 10.0.0.15/24
-set interfaces lo0 unit 0 family inet address 1.1.1.1/32
+set interfaces lo0 unit 0 family inet address 10.1.1.1/32
 set routing-instances l2vpn1 instance-type l2vpn
 set routing-instances l2vpn1 protocols l2vpn interface ge-0/0/0.0 description "EDGE LINK BETWEEN PE1 AND CE1"
 set routing-instances l2vpn1 protocols l2vpn site CE-1 interface ge-0/0/0.0 remote-site-id 2
 set routing-instances l2vpn1 protocols l2vpn site CE-1 site-identifier 1
 set routing-instances l2vpn1 protocols l2vpn encapsulation-type ethernet
 set routing-instances l2vpn1 interface ge-0/0/0.0
-set routing-instances l2vpn1 route-distinguisher 1.1.1.1:1
+set routing-instances l2vpn1 route-distinguisher 10.1.1.1:1
 set routing-instances l2vpn1 vrf-target target:65412:1
 set routing-options autonomous-system 65412
 set protocols bgp group ibgp type internal
-set protocols bgp group ibgp local-address 1.1.1.1
+set protocols bgp group ibgp local-address 10.1.1.1
 set protocols bgp group ibgp family l2vpn signaling
-set protocols bgp group ibgp neighbor 2.2.2.2
-set protocols mpls label-switched-path lsp_to_pe2 to 2.2.2.2
+set protocols bgp group ibgp neighbor 10.2.2.2
+set protocols mpls label-switched-path lsp_to_pe2 to 10.2.2.2
 set protocols mpls interface ge-0/0/1.0
 set protocols ospf traffic-engineering
 set protocols ospf area 0.0.0.0 interface lo0.0

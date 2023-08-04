@@ -6,7 +6,7 @@ set interfaces ge-0/0/1 description "Link from P-router to PE2"
 set interfaces ge-0/0/1 mtu 4000
 set interfaces ge-0/0/1 unit 0 family inet address 10.0.0.5/30
 set interfaces ge-0/0/1 unit 0 family mpls
-set interfaces lo0 unit 0 family inet address 3.3.3.3/32
+set interfaces lo0 unit 0 family inet address 10.3.3.3/32
 set protocols mpls interface ge-0/0/0.0
 set protocols mpls interface ge-0/0/1.0
 set protocols ospf traffic-engineering
