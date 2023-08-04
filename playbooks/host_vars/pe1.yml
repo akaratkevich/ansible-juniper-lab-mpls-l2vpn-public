@@ -1,0 +1,25 @@
+---
+hostname: pe1
+
+# general vars
+int_ge0_0_0: "Link from PE1 to CE1"
+int_ge0_0_0_0: "EDGE LINK BETWEEN PE1 AND CE1"
+int_ge0_0_1: "Link from PE1 to P1"
+ip_ge0_0_1: 10.0.0.1/30
+ip_lo: 10.1.1.1/32
+
+# bgp vars
+as_local: 65412
+as_peer: 65412
+local_peer_address: 10.1.1.1
+remote_peer_address: 10.2.2.2
+
+# l2vpn vars
+site: CE-1
+site_id: 1
+remote_site_id: 2
+vrf_target: target:65412:1
+rd: 10.1.1.1:1
+
+# mpls vars
+lsp: lsp_to_pe2
